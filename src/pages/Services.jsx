@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const Services = () => {
   return (
     <section className="py-20 bg-gray-50">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 mt-16">
 
         {/* Hero Section */}
         <div className="text-center mb-12">

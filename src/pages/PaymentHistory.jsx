@@ -8,7 +8,7 @@ const PaymentHistory = () => {
     const successfulPayments = Array.from({ length: 50 }, (_, index) => ({
       id: index + 1,
       date: `2024-01-${(index % 30) + 1}`, // Random date in January
-      amount: Math.floor(Math.random() * 50000) + 5000, // Random amount between 5k-50k
+      amount: Math.floor(Math.random() * 50000) + 7000, // Random amount between 5k-50k
       method: ["Credit Card", "PayPal", "Bank Transfer", "Cash"][index % 4], // Random method
       status: "Success",
     }));

@@ -6,9 +6,10 @@ import QuoteCalculator from "../components/QuoteCalculator";
 // Image paths (Ensure these images exist in the 'public' folder)
 const images = [
   "/concept-cleaning-services.webp",
-  "/badboy.jpg",
+  "/yesss.webp",
   "/badman.jpg",
   "/badgirl.jpg",
+  "/bihg4.jpg"
 ];
 
 // Image Slider Component
@@ -25,7 +26,7 @@ const ImageSlider = () => {
   const goToImage = (index) => setCurrentIndex(index);
 
   return (
-    <div className="relative h-[400px] w-full overflow-hidden rounded-lg shadow-lg">
+    <div className="relative h-[400px] w-full overflow-hidden rounded-lg shadow-lg mt-16">
       <AnimatePresence mode="wait">
         <motion.img
           key={images[currentIndex]}
