@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { FaGift, FaUserFriends, FaCoins, FaCheckCircle } from "react-icons/fa";
+import { FaGift, FaUserFriends, FaCoins } from "react-icons/fa";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const LoyaltyProgram = () => {
+  const navigate = useNavigate(); // Now correctly defined
+
   // State for points and rewards
-  const [points, setPoints] = useState(120); // Example: User has 120 points
+  const [points, setPoints] = useState(120); 
   const [rewards, setRewards] = useState([
     { id: 1, name: "10% Off Next Cleaning", cost: 100 },
     { id: 2, name: "Free Window Cleaning", cost: 150 },
   ]);
 
-  const [referralCode, setReferralCode] = useState("CLEAN123"); // Example referral code
+  const [referralCode, setReferralCode] = useState("Bhig4523"); 
 
   const redeemReward = (cost) => {
     if (points >= cost) {

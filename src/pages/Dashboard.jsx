@@ -1,14 +1,29 @@
 import React, { useState } from "react";
-import { FaCalendarCheck, FaHistory, FaFileInvoice, FaStar, FaComment, FaSignOutAlt } from "react-icons/fa";
-import LoyaltyProgram from "../components/LoyaltyProgram";
+import { useNavigate } from "react-router-dom";
+import { FaCalendarCheck, FaHistory, FaFileInvoice, FaStar, FaComment, FaSignOutAlt, FaHome, FaPlus, FaUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
-const Dashboard = () => {
+const Dashboard = ({ setIsLoggedIn }) => {
+  const navigate = useNavigate();
+
   const [appointments, setAppointments] = useState([
     { id: 1, date: "2025-02-15", time: "10:00 AM - 12:00 PM", service: "Deep Cleaning", status: "Upcoming" },
     { id: 2, date: "2025-01-30", time: "02:00 PM - 04:00 PM", service: "Standard Cleaning", status: "Completed" },
   ]);
 
   const [preferences, setPreferences] = useState(["Carpet Cleaning", "Fridge Cleaning"]);
+  
+  const [reviews, setReviews] = useState([
+    { id: 1, name: "Ridwan Y.", review: "Amazing service! My house looks spotless.", rating: 5 },
+    { id: 2, name: "Mubeen.", review: "Very professional and on time. Highly recommend!", rating: 4.5 },
+  ]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
 
   return (
     <div className="min-h-screen flex bg-gray-100">
@@ -17,35 +32,78 @@ const Dashboard = () => {
         <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
         <ul className="space-y-6 text-lg">
           <li className="flex items-center gap-3 hover:bg-blue-800 p-3 rounded-lg cursor-pointer transition">
-            <FaCalendarCheck /> Appointments
+            <FaHome /> <Link to="/">Home</Link>
           </li>
           <li className="flex items-center gap-3 hover:bg-blue-800 p-3 rounded-lg cursor-pointer transition">
-            <FaHistory /> History
+            <FaCalendarCheck /> <Link to="/doneappointments">Appointments</Link>
           </li>
           <li className="flex items-center gap-3 hover:bg-blue-800 p-3 rounded-lg cursor-pointer transition">
-            <FaFileInvoice /> Invoices
+            <FaHistory /> <Link to="/paymenthistory">History</Link>
           </li>
           <li className="flex items-center gap-3 hover:bg-blue-800 p-3 rounded-lg cursor-pointer transition">
-            <FaStar /> Preferences
+            <FaFileInvoice /> <Link to="/invoice">Invoices</Link>
           </li>
           <li className="flex items-center gap-3 hover:bg-blue-800 p-3 rounded-lg cursor-pointer transition">
-            <FaComment />  Contact Cleaner
+            <FaComment /> <Link to="/loyaltyprogram">Loyalty Program</Link>
           </li>
         </ul>
-        <button className="absolute bottom-6 left-6 flex items-center gap-2 text-red-400 hover:text-red-300">
+
+        {/* Logout Button */}
+        <button 
+          onClick={handleLogout} 
+          className="absolute bottom-6 left-6 flex items-center gap-2 text-red-400 hover:text-red-300"
+        >
           <FaSignOutAlt /> Logout
         </button>
       </div>
 
       {/* Main Content */}
       <div className="flex-1 p-8 ml-64">
-        <h1 className="text-4xl font-bold text-blue-700 text-center">Customer Dashboard</h1>
-        <p className="text-center text-gray-600 mt-2">Manage your cleaning appointments & preferences</p>
+        {/* Welcome & Profile Card */}
+        <motion.div className="bg-white p-6 rounded-xl shadow-md flex items-center gap-6"
+          whileHover={{ scale: 1.02 }}>
+          <FaUser className="text-blue-600 text-5xl" />
+          <div>
+            <h2 className="text-xl font-bold">Welcome, Bhigdhaddie</h2>
+            <p className="text-gray-500">Bhigdhaddie@gmail.com</p>
+            <span className="text-sm bg-green-500 text-white px-3 py-1 rounded-lg">Premium Member</span>
+          </div>
+        </motion.div>
 
-        {/* Grid Layout for Sections */}
+        {/* Stats Cards */}
+        <div className="grid grid-cols-3 gap-6 mt-8">
+          {[
+            { title: "Total Appointments", value: appointments.length, icon: <FaCalendarCheck className="text-blue-500 text-3xl" /> },
+            { title: "Completed Services", value: "12", icon: <FaStar className="text-yellow-500 text-3xl" /> },
+            { title: "Pending Requests", value: "3", icon: <FaHistory className="text-red-500 text-3xl" /> }
+          ].map((stat, index) => (
+            <motion.div key={index} className="bg-white p-6 rounded-xl shadow-md flex items-center gap-4"
+              whileHover={{ scale: 1.05 }}>
+              {stat.icon}
+              <div>
+                <h3 className="text-lg font-semibold">{stat.title}</h3>
+                <p className="text-2xl font-bold">{stat.value}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Quick Actions */}
+        <div className="flex gap-4 mt-6">
+          <motion.button className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md flex items-center gap-2"
+            whileHover={{ scale: 1.1 }} onClick={() => navigate("/appointment")}>
+            <FaPlus /> Book Appointment
+          </motion.button>
+          <motion.button className="bg-gray-300 text-gray-700 px-6 py-3 rounded-lg shadow-md flex items-center gap-2"
+            whileHover={{ scale: 1.1 }} onClick={() => navigate("/services")}>
+            <FaStar /> View Services
+          </motion.button>
+        </div>
+
+        {/* Appointments & Reviews Section */}
         <div className="grid grid-cols-2 gap-6 mt-8">
           {/* Appointments Section */}
-          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+          <motion.div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
             <h2 className="text-2xl font-semibold text-blue-600 flex items-center gap-2">
               <FaCalendarCheck /> Your Appointments
             </h2>
@@ -63,50 +121,26 @@ const Dashboard = () => {
             ) : (
               <p className="text-gray-500 mt-2">No upcoming appointments.</p>
             )}
-          </div>
+          </motion.div>
 
-          {/* Preferences Section */}
-          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+          {/* Recent Reviews Section */}
+          <motion.div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
             <h2 className="text-2xl font-semibold text-blue-600 flex items-center gap-2">
-              <FaStar /> Your Preferences
+              <FaStar /> Recent Reviews
             </h2>
-            {preferences.length > 0 ? (
+            {reviews.length > 0 ? (
               <ul className="mt-4 space-y-2">
-                {preferences.map((pref, index) => (
-                  <li key={index} className="border p-3 rounded-lg bg-yellow-100">{pref}</li>
+                {reviews.map((review) => (
+                  <li key={review.id} className="border p-3 rounded-lg bg-gray-100">
+                    <strong>{review.name}</strong>: "{review.review}"
+                    <span className="text-yellow-500 ml-2">⭐ {review.rating}</span>
+                  </li>
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-500 mt-2">No saved preferences yet.</p>
+              <p className="text-gray-500 mt-2">No reviews yet.</p>
             )}
-          </div>
-
-          {/* Invoices Section */}
-          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
-            <h2 className="text-2xl font-semibold text-blue-600 flex items-center gap-2">
-              <FaFileInvoice /> Your Invoices
-            </h2>
-            <p className="text-gray-500 mt-2">Download past invoices & receipts.</p>
-            <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-              Download Invoice
-            </button>
-          </div>
-
-          {/* Customer Chat */}
-          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
-            <h2 className="text-2xl font-semibold text-blue-600 flex items-center gap-2">
-              <FaComment /> Contact Cleaner
-            </h2>
-            <textarea className="w-full mt-2 border p-3 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Send a message to your cleaner..."></textarea>
-            <button className="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
-              Send Message
-            </button>
-          </div>
-        </div>
-
-        {/* Loyalty & Referral Section */}
-        <div className="mt-8">
-          <LoyaltyProgram />
+          </motion.div>
         </div>
       </div>
     </div>

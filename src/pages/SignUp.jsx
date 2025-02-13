@@ -38,8 +38,23 @@ const SignUp = () => {
   };
 
   return (
-    <section className="bg-gray-100 min-h-screen flex items-center justify-center">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+    <section className="relative w-full min-h-screen flex items-center justify-center">
+      {/* Background Video */}
+      <video 
+        autoPlay 
+        loop 
+        muted 
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      >
+        <source src="public/bhidha.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Dark Overlay */}
+      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50"></div>
+
+      {/* Sign-Up Form Container */}
+      <div className="relative bg-white shadow-lg rounded-lg p-8 w-full max-w-md z-10">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Create an Account
         </h1>
@@ -56,7 +71,6 @@ const SignUp = () => {
 
         {/* Sign-Up Form */}
         <form className="space-y-4" onSubmit={handleSubmit}>
-          {/* Name Field */}
           <div>
             <label className="block text-gray-700">Full Name</label>
             <input
@@ -70,7 +84,6 @@ const SignUp = () => {
             />
           </div>
 
-          {/* Email Field */}
           <div>
             <label className="block text-gray-700">Email Address</label>
             <input
@@ -84,7 +97,6 @@ const SignUp = () => {
             />
           </div>
 
-          {/* Password Field */}
           <div>
             <label className="block text-gray-700">Password</label>
             <input
@@ -106,7 +118,9 @@ const SignUp = () => {
             type="submit"
             className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-700 transition"
           >
-          <a href="http://localhost:5173/dashboard" className="text-white no-underline">Sign Up</a>  
+            <a href="http://localhost:5173/dashboard" className="text-white no-underline">
+              Sign Up
+            </a>
           </button>
         </form>
 

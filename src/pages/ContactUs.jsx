@@ -16,7 +16,7 @@ const ContactUs = () => {
 
   return (
     <section className="py-20 bg-gradient-to-br from-blue-50 to-gray-50">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 mt-16">
 
         {/* Section Title */}
         <div className="text-center mb-12">

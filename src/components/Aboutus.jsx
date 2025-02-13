@@ -6,8 +6,8 @@ const AboutUs = () => {
     <div>
       {/* Hero Section */}
       <section>
-        <div>
-          <h1 className="text-black text-4xl font-bold text-center mt-20">
+        <div className="mt-40">
+          <h1 className="text-black text-4xl font-bold text-center top mt-20">
             About Our Company
           </h1>
         </div>
@@ -15,7 +15,7 @@ const AboutUs = () => {
 
       {/* About Section */}
       <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-10">
           <div>
             <h2 className="text-3xl font-bold text-blue-700 mb-4">Creating immaculate environments across Africa</h2>
             <p className="text-gray-600">
